@@ -15,6 +15,8 @@
 
         <mapping class="ua.nure.hibernate.entity.User" />
         <mapping class="ua.nure.hibernate.entity.Vehicle" />
+        <mapping class="ua.nure.hibernate.entity.TwoWheeler" />
+        <mapping class="ua.nure.hibernate.entity.FourWheeler" />
 
     </session-factory>
 </hibernate-configuration>
