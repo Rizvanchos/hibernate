@@ -4,10 +4,10 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "vehicles")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Vehicle {
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue
     private int id;
     private String name;
 
