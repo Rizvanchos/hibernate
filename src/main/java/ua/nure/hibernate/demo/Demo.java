@@ -17,17 +17,24 @@ public class Demo {
         user.setBirthday(new Date());
         user.setDescription("User description");
 
-        Vehicle vehicle = new Vehicle();
-        vehicle.setName("Car");
+        Vehicle car = new Vehicle();
+        car.setName("Car");
+        Vehicle bus = new Vehicle();
+        bus.setName("Bus");
 
-        user.setVehicle(vehicle);
+        user.getVehicles().add(car);
+        user.getVehicles().add(bus);
+
+        car.setUser(user);
+        bus.setUser(user);
 
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
         session.save(user);
-        session.save(vehicle);
+        session.save(car);
+        session.save(bus);
 
         session.getTransaction().commit();
         session.close();

@@ -1,6 +1,8 @@
 package ua.nure.hibernate.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 @Entity
@@ -18,8 +20,9 @@ public class User {
 
     private String description;
 
-    @OneToOne
-    private Vehicle vehicle;
+    @OneToMany
+    @JoinTable(name = "user_vehicles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "vehicle_id"))
+    private Collection<Vehicle> vehicles = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -53,11 +56,11 @@ public class User {
         this.description = description;
     }
 
-    public Vehicle getVehicle() {
-        return vehicle;
+    public Collection<Vehicle> getVehicles() {
+        return vehicles;
     }
 
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
+    public void setVehicles(Collection<Vehicle> vehicles) {
+        this.vehicles = vehicles;
     }
 }
