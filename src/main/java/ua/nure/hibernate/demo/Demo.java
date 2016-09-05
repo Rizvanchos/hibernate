@@ -6,11 +6,12 @@ import org.hibernate.cfg.Configuration;
 import ua.nure.hibernate.entity.Address;
 import ua.nure.hibernate.entity.User;
 
+import java.io.IOException;
 import java.util.Date;
 
 public class Demo {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         User user = new User();
         user.setUsername("User");
         user.setBirthday(new Date());
@@ -37,8 +38,8 @@ public class Demo {
         session.close();
 
         session = sessionFactory.openSession();
-
         User retrievedUser = (User) session.get(User.class, 1);
         System.out.println(retrievedUser.getUsername());
+        System.out.println(retrievedUser.getAddresses());
     }
 }

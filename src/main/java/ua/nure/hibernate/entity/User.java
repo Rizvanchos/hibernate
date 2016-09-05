@@ -1,9 +1,5 @@
 package ua.nure.hibernate.entity;
 
-import org.hibernate.annotations.CollectionId;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,8 +22,6 @@ public class User {
 
     @ElementCollection
     @JoinTable(name = "user_addresses", joinColumns = @JoinColumn(name = "user_id"))
-    @GenericGenerator(name = "hib-gen", strategy = "hilo")
-    @CollectionId(columns = {@Column(name = "address_id")}, generator = "hib-gen", type = @Type(type = "int"))
     private Collection<Address> addresses = new ArrayList<>();
 
     public Integer getId() {
