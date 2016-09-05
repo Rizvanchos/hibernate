@@ -25,24 +25,13 @@ public class Demo {
         user.getVehicles().add(car);
         user.getVehicles().add(bus);
 
-        car.getUsers().add(user);
-        bus.getUsers().add(user);
-
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        session.save(user);
-        session.save(car);
-        session.save(bus);
+        session.persist(user);
 
         session.getTransaction().commit();
         session.close();
-
-        session = sessionFactory.openSession();
-        Vehicle c= (Vehicle) session.get(Vehicle.class, 1);
-        for (User user1 : c.getUsers()) {
-            System.out.println(user1.getUsername());
-        }
     }
 }

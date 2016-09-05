@@ -1,8 +1,9 @@
 package ua.nure.hibernate.entity;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "vehicles")
@@ -11,9 +12,6 @@ public class Vehicle {
     @GeneratedValue
     private int id;
     private String name;
-
-    @ManyToMany(mappedBy = "vehicles")
-    private Collection<User> users = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -29,13 +27,5 @@ public class Vehicle {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Collection<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Collection<User> users) {
-        this.users = users;
     }
 }

@@ -20,7 +20,7 @@ public class User {
 
     private String description;
 
-    @ManyToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "user_vehicles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "vehicle_id"))
     private Collection<Vehicle> vehicles = new ArrayList<>();
 
