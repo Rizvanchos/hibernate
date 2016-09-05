@@ -14,6 +14,7 @@
         <property name="hibernate.connection.username">root</property>
 
         <mapping class="ua.nure.hibernate.entity.User" />
+        <mapping class="ua.nure.hibernate.entity.Vehicle" />
 
     </session-factory>
 </hibernate-configuration>
