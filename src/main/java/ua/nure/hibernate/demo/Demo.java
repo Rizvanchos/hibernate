@@ -21,11 +21,16 @@ public class Demo {
         secondUser.setBirthday(new Date());
         secondUser.setDescription("Second user description");
 
-        Address address = new Address();
-        address.setCity("Kharkiv");
-        address.setStreet("Sumskay");
+        Address homeAddress = new Address();
+        homeAddress.setCity("Kharkiv");
+        homeAddress.setStreet("Sumskay");
 
-        firstUser.setAddress(address);
+        Address officeAddress = new Address();
+        officeAddress.setCity("Kiev");
+        officeAddress.setStreet("Main");
+
+        firstUser.setHomeAddress(homeAddress);
+        firstUser.setOfficeAddress(officeAddress);
 
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         Session session = sessionFactory.openSession();
@@ -41,5 +46,6 @@ public class Demo {
 
         User retrievedUser = (User) session.get(User.class, 1);
         System.out.println(retrievedUser.getUsername());
+        System.out.println(retrievedUser.getHomeAddress().getCity());
     }
 }

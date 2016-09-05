@@ -19,7 +19,14 @@ public class User {
     private String description;
 
     @Embedded
-    private Address address;
+    @AttributeOverrides({
+            @AttributeOverride(name = "street", column = @Column(name = "home_street")),
+            @AttributeOverride(name = "city", column = @Column(name = "home_city")),
+            @AttributeOverride(name = "state", column = @Column(name = "home_state")),
+            @AttributeOverride(name = "pincode", column = @Column(name = "home_pincode"))})
+    private Address homeAddress;
+    @Embedded
+    private Address officeAddress;
 
     public Integer getId() {
         return id;
@@ -53,11 +60,19 @@ public class User {
         this.description = description;
     }
 
-    public Address getAddress() {
-        return address;
+    public Address getHomeAddress() {
+        return homeAddress;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setHomeAddress(Address homeAddress) {
+        this.homeAddress = homeAddress;
+    }
+
+    public Address getOfficeAddress() {
+        return officeAddress;
+    }
+
+    public void setOfficeAddress(Address officeAddress) {
+        this.officeAddress = officeAddress;
     }
 }
