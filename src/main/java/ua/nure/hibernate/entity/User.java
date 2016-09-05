@@ -1,9 +1,13 @@
 package ua.nure.hibernate.entity;
 
+import org.hibernate.annotations.CollectionId;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -21,7 +25,10 @@ public class User {
     private String description;
 
     @ElementCollection
-    private Set<Address> addresses = new HashSet<>();
+    @JoinTable(name = "user_addresses", joinColumns = @JoinColumn(name = "user_id"))
+    @GenericGenerator(name = "hib-gen", strategy = "hilo")
+    @CollectionId(columns = {@Column(name = "address_id")}, generator = "hib-gen", type = @Type(type = "int"))
+    private Collection<Address> addresses = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -55,11 +62,11 @@ public class User {
         this.description = description;
     }
 
-    public Set<Address> getAddresses() {
+    public Collection<Address> getAddresses() {
         return addresses;
     }
 
-    public void setAddresses(Set<Address> addresses) {
+    public void setAddresses(Collection<Address> addresses) {
         this.addresses = addresses;
     }
 }
