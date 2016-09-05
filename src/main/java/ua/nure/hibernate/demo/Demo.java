@@ -3,6 +3,7 @@ package ua.nure.hibernate.demo;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import ua.nure.hibernate.entity.Address;
 import ua.nure.hibernate.entity.User;
 
 import java.util.Date;
@@ -20,6 +21,12 @@ public class Demo {
         secondUser.setBirthday(new Date());
         secondUser.setDescription("Second user description");
 
+        Address address = new Address();
+        address.setCity("Kharkiv");
+        address.setStreet("Sumskay");
+
+        firstUser.setAddress(address);
+
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -31,7 +38,7 @@ public class Demo {
         session.close();
 
         session = sessionFactory.openSession();
-        
+
         User retrievedUser = (User) session.get(User.class, 1);
         System.out.println(retrievedUser.getUsername());
     }

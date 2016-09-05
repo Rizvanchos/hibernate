@@ -18,6 +18,9 @@ public class User {
 
     private String description;
 
+    @Embedded
+    private Address address;
+
     public Integer getId() {
         return id;
     }
@@ -48,5 +51,13 @@ public class User {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }
