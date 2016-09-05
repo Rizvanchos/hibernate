@@ -11,15 +11,10 @@ import java.util.Date;
 public class Demo {
 
     public static void main(String[] args) {
-        User firstUser = new User();
-        firstUser.setUsername("First user");
-        firstUser.setBirthday(new Date());
-        firstUser.setDescription("First user description");
-
-        User secondUser = new User();
-        secondUser.setUsername("Second user");
-        secondUser.setBirthday(new Date());
-        secondUser.setDescription("Second user description");
+        User user = new User();
+        user.setUsername("User");
+        user.setBirthday(new Date());
+        user.setDescription("User description");
 
         Address homeAddress = new Address();
         homeAddress.setCity("Kharkiv");
@@ -29,15 +24,14 @@ public class Demo {
         officeAddress.setCity("Kiev");
         officeAddress.setStreet("Main");
 
-        firstUser.setHomeAddress(homeAddress);
-        firstUser.setOfficeAddress(officeAddress);
+        user.getAddresses().add(homeAddress);
+        user.getAddresses().add(officeAddress);
 
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        session.save(firstUser);
-        session.save(secondUser);
+        session.save(user);
 
         session.getTransaction().commit();
         session.close();
@@ -46,6 +40,5 @@ public class Demo {
 
         User retrievedUser = (User) session.get(User.class, 1);
         System.out.println(retrievedUser.getUsername());
-        System.out.println(retrievedUser.getHomeAddress().getCity());
     }
 }

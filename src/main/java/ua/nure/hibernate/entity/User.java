@@ -2,6 +2,8 @@ package ua.nure.hibernate.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -18,15 +20,8 @@ public class User {
 
     private String description;
 
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "street", column = @Column(name = "home_street")),
-            @AttributeOverride(name = "city", column = @Column(name = "home_city")),
-            @AttributeOverride(name = "state", column = @Column(name = "home_state")),
-            @AttributeOverride(name = "pincode", column = @Column(name = "home_pincode"))})
-    private Address homeAddress;
-    @Embedded
-    private Address officeAddress;
+    @ElementCollection
+    private Set<Address> addresses = new HashSet<>();
 
     public Integer getId() {
         return id;
@@ -60,19 +55,11 @@ public class User {
         this.description = description;
     }
 
-    public Address getHomeAddress() {
-        return homeAddress;
+    public Set<Address> getAddresses() {
+        return addresses;
     }
 
-    public void setHomeAddress(Address homeAddress) {
-        this.homeAddress = homeAddress;
-    }
-
-    public Address getOfficeAddress() {
-        return officeAddress;
-    }
-
-    public void setOfficeAddress(Address officeAddress) {
-        this.officeAddress = officeAddress;
+    public void setAddresses(Set<Address> addresses) {
+        this.addresses = addresses;
     }
 }
