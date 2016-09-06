@@ -15,13 +15,7 @@ public class Demo {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        // *********************************************************
         User firstUser = (User) session.get(User.class, 1);
-        User secondUser = (User) session.get(User.class, 1); // only one select (first level cache)
-
-        firstUser.setUsername("Updated name"); // update query goes
-
-        secondUser = (User)session.get(User.class, 1); // no select (already in cache)
 
         session.getTransaction().commit();
         session.close();
@@ -29,7 +23,7 @@ public class Demo {
         session = sessionFactory.openSession();
         session.beginTransaction();
 
-        secondUser = (User)session.get(User.class, 1); // select executes (first level cache works only during session)
+        User secondUser = (User)session.get(User.class, 1); // select executes (first level cache works only during session)
 
         session.getTransaction().commit();
         session.close();
