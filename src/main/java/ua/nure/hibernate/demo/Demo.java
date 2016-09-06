@@ -3,7 +3,6 @@ package ua.nure.hibernate.demo;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import ua.nure.hibernate.entity.User;
 
 import java.io.IOException;
 
@@ -15,7 +14,7 @@ public class Demo {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        User firstUser = (User) session.get(User.class, 1);
+        session.createQuery("from User where id = 1").setCacheable(true).list();
 
         session.getTransaction().commit();
         session.close();
@@ -23,7 +22,7 @@ public class Demo {
         session = sessionFactory.openSession();
         session.beginTransaction();
 
-        User secondUser = (User)session.get(User.class, 1); // select executes (first level cache works only during session)
+        session.createQuery("from User where id = 1").setCacheable(true).list(); // essential to set cacheable
 
         session.getTransaction().commit();
         session.close();
