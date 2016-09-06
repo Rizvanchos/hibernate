@@ -1,11 +1,13 @@
 package ua.nure.hibernate.demo;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import ua.nure.hibernate.entity.User;
 
 import java.io.IOException;
+import java.util.List;
 
 public class Demo {
 
@@ -15,16 +17,19 @@ public class Demo {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        User user = (User) session.get(User.class, 1);
-        session.getTransaction().commit();
-        session.close();
+        Query query = session.createQuery("from User");
+        List<User> users = query.list();
 
-        user.setUsername("Updated name");
+        for (User user : users) {
+            System.out.println(user.getUsername());
+        }
 
-        session = sessionFactory.openSession();
-        session.beginTransaction();
+        query = session.createQuery("from User where id > 5");
+        users = query.list();
 
-        session.update(user); // update query goes only when data in database is different
+        for (User user : users) {
+            System.out.println(user.getUsername());
+        }
 
         session.getTransaction().commit();
         session.close();
