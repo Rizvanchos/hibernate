@@ -19,9 +19,9 @@ public class Demo {
 
         // **********************************************************
 
-        Query query = session.createQuery("from User");
-        query.setFirstResult(5);
-        query.setMaxResults(5);
+        Query query = session.createQuery("from User where id > ? and username = ?");
+        query.setInteger(0, 5);
+        query.setString(1, "User 10");
 
         List<User> users = query.list();
 
@@ -31,27 +31,14 @@ public class Demo {
 
         // **********************************************************
 
-        query = session.createQuery("from User where id > 5");
+        query = session.createQuery("from User where id > :id and username = :username");
+        query.setInteger("id", 5);
+        query.setString("username", "User 10");
+
         users = query.list();
 
         for (User user : users) {
             System.out.println(user.getUsername());
-        }
-
-        // **********************************************************
-
-        query = session.createQuery("select username from User");
-        List<String> names = query.list();
-
-        names.forEach(System.out::println);
-
-        // **********************************************************
-
-        query = session.createQuery("select id, username from User");
-        List<Object[]> results = query.list();
-
-        for (Object[] result : results) {
-            System.out.println(result[0] + " " + result[1]);
         }
 
         // **********************************************************
