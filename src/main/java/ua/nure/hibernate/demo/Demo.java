@@ -19,9 +19,8 @@ public class Demo {
 
         // **********************************************************
 
-        Query query = session.createQuery("from User where id > ? and username = ?");
-        query.setInteger(0, 5);
-        query.setString(1, "User 10");
+        Query query = session.getNamedQuery("User.byId");
+        query.setInteger("id", 5);
 
         List<User> users = query.list();
 
@@ -31,9 +30,8 @@ public class Demo {
 
         // **********************************************************
 
-        query = session.createQuery("from User where id > :id and username = :username");
-        query.setInteger("id", 5);
-        query.setString("username", "User 10");
+        query = session.getNamedQuery("User.byName");
+        query.setString("name", "User 10");
 
         users = query.list();
 
