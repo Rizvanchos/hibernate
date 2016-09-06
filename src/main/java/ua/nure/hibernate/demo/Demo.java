@@ -1,9 +1,10 @@
 package ua.nure.hibernate.demo;
 
-import org.hibernate.Query;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Restrictions;
 import ua.nure.hibernate.entity.User;
 
 import java.io.IOException;
@@ -19,21 +20,10 @@ public class Demo {
 
         // **********************************************************
 
-        Query query = session.getNamedQuery("User.byId");
-        query.setInteger("id", 5);
+        Criteria criteria = session.createCriteria(User.class);
+        criteria.add(Restrictions.eq("username", "User 10"));
 
-        List<User> users = query.list();
-
-        for (User user : users) {
-            System.out.println(user.getUsername());
-        }
-
-        // **********************************************************
-
-        query = session.getNamedQuery("User.byName");
-        query.setString("name", "User 10");
-
-        users = query.list();
+        List<User> users = criteria.list();
 
         for (User user : users) {
             System.out.println(user.getUsername());
