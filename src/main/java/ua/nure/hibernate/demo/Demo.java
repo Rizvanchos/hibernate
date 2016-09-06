@@ -17,12 +17,19 @@ public class Demo {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
+        // **********************************************************
+
         Query query = session.createQuery("from User");
+        query.setFirstResult(5);
+        query.setMaxResults(5);
+
         List<User> users = query.list();
 
         for (User user : users) {
             System.out.println(user.getUsername());
         }
+
+        // **********************************************************
 
         query = session.createQuery("from User where id > 5");
         users = query.list();
@@ -30,6 +37,24 @@ public class Demo {
         for (User user : users) {
             System.out.println(user.getUsername());
         }
+
+        // **********************************************************
+
+        query = session.createQuery("select username from User");
+        List<String> names = query.list();
+
+        names.forEach(System.out::println);
+
+        // **********************************************************
+
+        query = session.createQuery("select id, username from User");
+        List<Object[]> results = query.list();
+
+        for (Object[] result : results) {
+            System.out.println(result[0] + " " + result[1]);
+        }
+
+        // **********************************************************
 
         session.getTransaction().commit();
         session.close();
