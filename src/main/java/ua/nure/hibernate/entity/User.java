@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Date;
 
 @Entity
+@org.hibernate.annotations.Entity(selectBeforeUpdate = true)
 @Table(name = "users")
 public class User {
     @Id

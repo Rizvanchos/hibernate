@@ -11,24 +11,22 @@ public class Demo {
 
     public static void main(String[] args) throws IOException {
 
-        // *** Transient object ***
-        User user = new User();
-        user.setUsername("User");
-
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        // *** Persistent object (all updates will be triggered) ***
-        session.save(user);
-
-        user.setUsername("First name change");
-        user.setUsername("Second name change"); // Only this update will go to database (hibernate takes latest state before commit)
-
+        User user = (User) session.get(User.class, 1);
         session.getTransaction().commit();
         session.close();
 
-        // *** Detached object (hibernate doesn't trigger changes) ***
-        user.setUsername("Another User");
+        user.setUsername("Updated name");
+
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        session.update(user); // update query goes only when data in database is different
+
+        session.getTransaction().commit();
+        session.close();
     }
 }
